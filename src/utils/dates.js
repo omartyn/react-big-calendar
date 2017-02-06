@@ -172,7 +172,6 @@ let dates = {
   tomorrow: function tomorrow(timezone) {
     return dates.add(dates.today(timezone), 1, 'day');
   }
-  }
 }
 
 export default dates;
