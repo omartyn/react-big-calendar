@@ -33,6 +33,7 @@ export default class TimeGrid extends Component {
     min: React.PropTypes.instanceOf(Date),
     max: React.PropTypes.instanceOf(Date),
     now: React.PropTypes.instanceOf(Date),
+    timezone: PropTypes.number,
 
     scrollToTime: React.PropTypes.instanceOf(Date),
     eventPropGetter: React.PropTypes.func,
@@ -194,7 +195,7 @@ export default class TimeGrid extends Component {
   }
 
   renderEvents(range, events, today){
-    let { min, max, endAccessor, startAccessor, components } = this.props;
+    let { min, max, endAccessor, startAccessor, components, timezone } = this.props;
 
     return range.map((date, idx) => {
       let daysEvents = events.filter(
@@ -211,7 +212,7 @@ export default class TimeGrid extends Component {
           eventComponent={components.event}
           eventWrapperComponent={components.eventWrapper}
           dayWrapperComponent={components.dayWrapper}
-          className={cn({ 'rbc-now': dates.eq(date, today, 'day') })}
+          className={cn({ 'rbc-now': dates.isToday(date, timezone) })}
           style={segStyle(1, this.slots)}
           key={idx}
           date={date}
@@ -222,7 +223,7 @@ export default class TimeGrid extends Component {
   }
 
   renderHeader(range, events, width) {
-    let { messages, rtl, selectable, components } = this.props;
+    let { messages, rtl, selectable, components, timezone } = this.props;
     let { isOverflowing } = this.state || {};
 
     let style = {};
@@ -258,6 +259,7 @@ export default class TimeGrid extends Component {
             range={range}
             rtl={this.props.rtl}
             events={events}
+            timezone={timezone}
             className='rbc-allday-cell'
             selectable={selectable}
             onSelectSlot={this.handleSelectAllDaySlot}
@@ -278,7 +280,7 @@ export default class TimeGrid extends Component {
   }
 
   renderHeaderCells(range){
-    let { dayFormat, culture, components } = this.props;
+    let { dayFormat, culture, components, timezone } = this.props;
     let HeaderComponent = components.header || Header
 
     return range.map((date, i) =>
@@ -286,7 +288,7 @@ export default class TimeGrid extends Component {
         key={i}
         className={cn(
           'rbc-header',
-          dates.isToday(date) && 'rbc-today',
+          dates.isToday(date, timezone) && 'rbc-today',
         )}
         style={segStyle(1, this.slots)}
       >
@@ -368,8 +370,8 @@ export default class TimeGrid extends Component {
   }
 
   positionTimeIndicator() {
-    const { rtl, min, max } = this.props
-    const now = new Date();
+    const { rtl, min, max, timezone } = this.props
+    const now = dates.now(timezone);
 
     const secondsGrid = dates.diff(max, min, 'seconds');
     const secondsPassed = dates.diff(now, min, 'seconds');

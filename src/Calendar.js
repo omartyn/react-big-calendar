@@ -174,6 +174,11 @@ let Calendar = React.createClass({
     step: React.PropTypes.number,
 
     /**
+     * normal timezone offset in minutes. For example, '+06:00' -> timezone should be +360
+     */
+    timezone: React.PropTypes.number,
+
+    /**
      * The number of slots per "section" in the time grid views. Adjust with `step`
      * to change the default of 1 hour long groups, with 30 minute slots.
      */
@@ -508,10 +513,10 @@ let Calendar = React.createClass({
   },
 
   handleNavigate(action, newDate) {
-    let { view, date, onNavigate } = this.props;
+    let { view, date, onNavigate, timezone } = this.props;
     let ViewComponent = this.getView();
 
-    date = moveDate(action, newDate || date, ViewComponent)
+    date = moveDate(action, newDate || date, ViewComponent, timezone)
 
     onNavigate(date, view)
 

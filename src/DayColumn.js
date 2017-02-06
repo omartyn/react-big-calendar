@@ -32,6 +32,7 @@ let DaySlot = React.createClass({
     min: React.PropTypes.instanceOf(Date).isRequired,
     max: React.PropTypes.instanceOf(Date).isRequired,
     now: React.PropTypes.instanceOf(Date),
+    timezone: PropTypes.number,
 
     rtl: React.PropTypes.bool,
     titleAccessor: accessor,
@@ -91,6 +92,7 @@ let DaySlot = React.createClass({
       now,
       selectRangeFormat,
       culture,
+      timezone,
       ...props
     } = this.props
 
@@ -109,7 +111,7 @@ let DaySlot = React.createClass({
         {...props}
         className={cn(
           'rbc-day-slot',
-          dates.isToday(max) && 'rbc-today'
+          dates.isToday(max, timezone) && 'rbc-today'
         )}
         now={now}
         min={min}

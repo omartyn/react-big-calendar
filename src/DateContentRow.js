@@ -17,6 +17,8 @@ const propTypes = {
   events: React.PropTypes.array.isRequired,
   range: React.PropTypes.array.isRequired,
 
+  timezone: PropTypes.number,
+
   rtl: React.PropTypes.bool,
   renderForMeasure: React.PropTypes.bool,
   renderHeader: React.PropTypes.func,
@@ -104,7 +106,7 @@ class DateContentRow extends React.Component {
       style: segStyle(1, range.length),
       className: cn(
         'rbc-date-cell',
-        dates.eq(date, new Date(), 'day') && 'rbc-now', // FIXME use props.now
+        dates.isToday(date, timezone) && 'rbc-now', // FIXME use props.now
       )
     })
   }
@@ -148,6 +150,7 @@ class DateContentRow extends React.Component {
       eventWrapperComponent,
       onSelectStart,
       onSelectEnd,
+      timezone,
       ...props
     } = this.props;
 
@@ -169,6 +172,7 @@ class DateContentRow extends React.Component {
         <BackgroundCells
           rtl={rtl}
           range={range}
+          timezone={timezone}
           selectable={selectable}
           container={this.getContainer}
           onSelectStart={onSelectStart}

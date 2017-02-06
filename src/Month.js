@@ -33,6 +33,8 @@ let propTypes = {
   step: React.PropTypes.number,
   now: React.PropTypes.instanceOf(Date),
 
+  timezone: PropTypes.number,
+
   scrollToTime: React.PropTypes.instanceOf(Date),
   eventPropGetter: React.PropTypes.func,
 
@@ -156,7 +158,9 @@ let MonthView = React.createClass({
       allDayAccessor,
       eventPropGetter,
       messages,
-      selected } = this.props;
+      selected,
+      timezone,
+    } = this.props;
 
     const { needLimitMeasure, rowLimit } = this.state;
 
@@ -173,6 +177,7 @@ let MonthView = React.createClass({
         className='rbc-month-row'
         range={week}
         events={events}
+        timezone={timezone}
         maxRows={rowLimit}
         selected={selected}
         selectable={selectable}

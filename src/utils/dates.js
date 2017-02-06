@@ -82,8 +82,8 @@ let dates = {
     return dates.eq(dateA, dateB, 'month')
   },
 
-  isToday(date) {
-    return dates.eq(date, dates.today(), 'day')
+  isToday(date, timezone) {
+    return dates.eq(date, dates.today(timezone), 'day');
   },
 
   eqTime(dateA, dateB){
@@ -145,16 +145,33 @@ let dates = {
     return Math.ceil((((d - new Date(d.getFullYear(), 0, 1)) / 8.64e7 ) + 1) / 7);
   },
 
-  today() {
-    return dates.startOf(new Date(), 'day')
+  now(timezone) {
+
+    let d = new Date();
+    let dNew = d;
+
+    if (timezone !== null && timezone !== undefined) {
+      let ms = d.getTime();
+      let tzOff = (-d.getTimezoneOffset() + (-timezone)) * 60000;
+      let msNew = ms - tzOff;
+      dNew = new Date(msNew);
+    }
+
+    return dNew;
   },
 
-  yesterday() {
-    return dates.add(dates.startOf(new Date(), 'day'), -1, 'day')
+  today(timezone) {
+    let dNew = dates.now(timezone);
+    return dates.startOf(dNew, 'day');
   },
 
-  tomorrow() {
-    return dates.add(dates.startOf(new Date(), 'day'), 1, 'day')
+  yesterday: function yesterday(timezone) {
+    return dates.add(dates.today(timezone), -1, 'day');
+  },
+
+  tomorrow: function tomorrow(timezone) {
+    return dates.add(dates.today(timezone), 1, 'day');
+  }
   }
 }
 
