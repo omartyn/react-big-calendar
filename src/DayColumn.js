@@ -32,7 +32,7 @@ let DaySlot = React.createClass({
     min: React.PropTypes.instanceOf(Date).isRequired,
     max: React.PropTypes.instanceOf(Date).isRequired,
     now: React.PropTypes.instanceOf(Date),
-    timezone: PropTypes.number,
+    timezone: React.PropTypes.number,
 
     rtl: React.PropTypes.bool,
     titleAccessor: accessor,

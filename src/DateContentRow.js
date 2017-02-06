@@ -17,7 +17,7 @@ const propTypes = {
   events: React.PropTypes.array.isRequired,
   range: React.PropTypes.array.isRequired,
 
-  timezone: PropTypes.number,
+  timezone: React.PropTypes.number,
 
   rtl: React.PropTypes.bool,
   renderForMeasure: React.PropTypes.bool,

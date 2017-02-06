@@ -33,7 +33,7 @@ export default class TimeGrid extends Component {
     min: React.PropTypes.instanceOf(Date),
     max: React.PropTypes.instanceOf(Date),
     now: React.PropTypes.instanceOf(Date),
-    timezone: PropTypes.number,
+    timezone: React.PropTypes.number,
 
     scrollToTime: React.PropTypes.instanceOf(Date),
     eventPropGetter: React.PropTypes.func,

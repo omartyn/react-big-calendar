@@ -33,7 +33,7 @@ let propTypes = {
   step: React.PropTypes.number,
   now: React.PropTypes.instanceOf(Date),
 
-  timezone: PropTypes.number,
+  timezone: React.PropTypes.number,
 
   scrollToTime: React.PropTypes.instanceOf(Date),
   eventPropGetter: React.PropTypes.func,

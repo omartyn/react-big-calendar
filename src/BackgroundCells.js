@@ -26,7 +26,7 @@ class BackgroundCells extends React.Component {
     rtl: React.PropTypes.bool,
     type: React.PropTypes.string,
 
-    timezone: PropTypes.number,
+    timezone: React.PropTypes.number,
   }
 
   constructor(props, context) {
