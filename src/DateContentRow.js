@@ -98,7 +98,7 @@ class DateContentRow extends React.Component {
   }
 
   renderHeadingCell = (date, index) => {
-    let { renderHeader, range } = this.props;
+    let { renderHeader, range, timezone } = this.props;
 
     return renderHeader({
       date,
