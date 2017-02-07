@@ -152,7 +152,7 @@ let dates = {
 
     if (timezone !== null && timezone !== undefined) {
       let ms = d.getTime();
-      let tzOff = (-d.getTimezoneOffset() + (-timezone)) * 60000;
+      let tzOff = (-d.getTimezoneOffset() + (-timezone)) * MILLI.minutes;
       let msNew = ms - tzOff;
       dNew = new Date(msNew);
     }
